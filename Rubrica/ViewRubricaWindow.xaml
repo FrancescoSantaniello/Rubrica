@@ -1,0 +1,115 @@
+﻿<Window x:Class="Rubrica.ViewRubricaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Rubrica"
+        mc:Ignorable="d"
+        Closing="Window_Closing"
+        WindowStartupLocation="CenterScreen"
+        PreviewKeyDown="Window_PreviewKeyDown"
+        PreviewMouseWheel="Window_PreviewMouseWheel"
+        Title="Rubrica" Height="500" Width="1000">
+
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="buttonStyle">
+            <Setter Property="Margin" Value="0,0,10,0"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+
+        <Style TargetType="ToggleButton" x:Key="toggleButtonStyle">
+            <Setter Property="Margin" Value="0,0,10,0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+
+        <Style TargetType="ToolBar" x:Key="toolBarStyle">
+            <Setter Property="Margin" Value="0,0,10,0"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+
+        <Style TargetType="TextBox" x:Key="textBoxStyle">
+            <Setter Property="Margin" Value="0,0,10,0"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+
+        <Style TargetType="Label" x:Key="labelStyle">
+            <Setter Property="Margin" Value="0,0,10,0"/>
+        </Style>
+    </Window.Resources>
+
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top">
+            <ToolBar Style="{StaticResource toolBarStyle}">
+                <Button x:Name="buttonNuovoContatto" Style="{StaticResource buttonStyle}" Click="buttonNuovoContatto_Click" Content="Aggiungi contatto"/>
+                <Button x:Name="buttonCancellaContatti" Style="{StaticResource buttonStyle}" Click="buttonCancellaContatti_Click" Content="Cancella contatti" />
+                <Button x:Name="buttonCambiaRubrica" Style="{StaticResource buttonStyle}" Click="buttonCambiaRubrica_Click" Content="Cambia rubrica" />
+                <Button x:Name="buttonCancellazioneMultipla" Style="{StaticResource buttonStyle}" Click="buttonCancellazioneMultipla_Click" Content="Cancalle contatti selezionati" />
+
+                <Separator Margin="0,0,10,0"/>
+
+                <Button x:Name="buttonEsportaCSV" Style="{StaticResource buttonStyle}" Click="buttonEsportaCSV_Click" Content="Esporta rubrica come CSV" />
+
+                <Separator Margin="0,0,10,0"/>
+
+                <Button x:Name="buttonAumentaZoom" Style="{StaticResource buttonStyle}" Click="buttonAumentaZoom_Click" Content="Zoom +"/>
+                <Button x:Name="buttonDiminuisciZoom" Style="{StaticResource buttonStyle}" Click="buttonDiminuisciZoom_Click" Content="Zoom -" />
+
+                <Separator Margin="0,0,10,0"/>
+                <Button x:Name="buttonSalva" Style="{StaticResource buttonStyle}" Click="buttonSalva_Click" Content="Salva"/>
+                <Separator/>
+
+                <Label Content="Cerca:" Style="{StaticResource labelStyle}"/>
+                <TextBox x:Name="textBoxKey" Width="200" Style="{StaticResource textBoxStyle}" TextChanged="textBoxKey_TextChanged"/>
+
+                <ToggleButton x:Name="toggleButtonRicercaApprofondita" Style="{StaticResource toggleButtonStyle}" IsChecked="True" Content="Ricerca approfondita" />
+            </ToolBar>
+        </StackPanel>
+
+        <DataGrid x:Name="dataGrid" 
+                  Margin="3"
+                  FontSize="14"
+                  AutoGenerateColumns="False" 
+                  CanUserAddRows="False"
+                  AlternatingRowBackground="LightBlue"
+                  AllowDrop="True"
+                  DragEnter="dataGrid_DragEnter"
+                  DragOver="dataGrid_DragOver"
+                  Drop="dataGrid_Drop"
+                  BorderThickness="0"
+                  PreviewDragOver="dataGrid_PreviewDragOver"
+                  >
+
+            <DataGrid.Resources>
+                <Style TargetType="DataGridCell">
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="Yellow"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.Resources>
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" IsReadOnly="True" Binding="{Binding Id}" Width="Auto"/>
+                <DataGridTextColumn Header="User ID" Binding="{Binding UserId}" Width="Auto"/>
+                <DataGridTextColumn Header="Nome"  FontWeight="Bold" Binding="{Binding Nome}" Width="*"/>
+                <DataGridTextColumn Header="Cognome" FontWeight="Bold" Binding="{Binding Cognome}" Width="*"/>
+                <DataGridTextColumn Header="Telefono" Binding="{Binding Telefono}" Width="*"/>
+                <DataGridTextColumn Header="Altro" Binding="{Binding Altro}" Width="*"/>
+
+                <DataGridTemplateColumn Width="Auto" Header="🗑️  ">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="buttonCancella" Padding="1" Click="buttonCancella_Click" Cursor="Hand" Content="🗑️" Background="Red"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Window>

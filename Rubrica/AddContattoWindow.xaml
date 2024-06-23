@@ -1,0 +1,30 @@
+﻿<Window x:Class="Rubrica.AddContattoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Rubrica"
+        mc:Ignorable="d"
+        FontSize="14"
+        ResizeMode="NoResize"
+        Title="Aggiungi contatto" Height="500" Width="400">
+    <StackPanel Margin="10">
+        <Label Content="User ID"/>
+        <TextBox x:Name="textBoxUserID" Margin="0,10,0,10" Padding="5"/>
+
+
+        <Label Content="Nome (*)" FontWeight="Bold"/>
+        <TextBox x:Name="textBoxNome" Margin="0,10,0,10" Padding="5"/>
+
+        <Label Content="Cognome (*)" FontWeight="Bold"/>
+        <TextBox x:Name="textBoxCognome" Margin="0,10,0,10" Padding="5"/>
+
+        <Label Content="Telefono (*)" FontWeight="Bold"/>
+        <TextBox x:Name="textBoxTelefono" Margin="0,10,0,10" Padding="5"/>
+
+        <Label Content="Altro"/>
+        <TextBox x:Name="textBoxAltro" Margin="0,10,0,10" Padding="5"/>
+
+        <Button x:Name="buttonAggiungi" Content="Aggiungi contatto" Cursor="Hand" Padding="5" Click="buttonAggiungi_Click"/>
+    </StackPanel>
+</Window>
